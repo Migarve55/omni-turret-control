@@ -20,7 +20,7 @@ class Turret:
         self.client.disconnect()
 
     def move(self, x, y):
-        msg = '{"command":"position","arg1":' + y + ',"arg2":' + x + '}'
+        msg = '{"command":"position","arg1":' + int(y) + ',"arg2":' + int(x) + '}'
         self.client.publish("SISTEM/master/torreta", msg)
 
     def shoot(self):

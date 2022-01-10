@@ -10,8 +10,8 @@ class Turret:
     def disconnect_mqtt(self):
         print("Disconnected")
 
-    def move(self, x, y):
-        print(x, y)
+    def move(self, yaw, pitch):
+        print(f'Yaw: {yaw}º, Pitch: {pitch}º')
 
     def shoot(self):
         print('BANG')
