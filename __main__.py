@@ -1,11 +1,13 @@
 
-from control.turret_stub import Turret
+from control.turret_stub import TurretStub
+from control.turret import Turret
 from vision.counter import MotionTracker
 import cv2
 from aiming.ballistics import *
 
-broker = 'mqtt://production:trigliceridos@192.168.1.5'
-port = 1883
+broker = '192.168.1.5'
+user = "production"
+passwd = "trigliceridos"
 
 counter = 0
 threshold = 15
@@ -44,9 +46,9 @@ def manual_aim(turret, feed):
 
 
 def draw_target(img, s_x, s_y):
-    (height, width, _) = img.shape
-    cv2.line(img, (0, s_y), (width, s_y), (0, 0, 200), 2)
-    cv2.line(img, (s_x, 0), (s_x, height), (0, 0, 200), 2)
+    (img_height, img_width, _) = img.shape
+    cv2.line(img, (0, s_y), (img_width, s_y), (0, 0, 200), 2)
+    cv2.line(img, (s_x, 0), (s_x, img_height), (0, 0, 200), 2)
     cv2.circle(img, (s_x, s_y), 10, (0, 0, 200), 2)
 
 
@@ -58,14 +60,14 @@ def track_mouse(event, x, y, flags, param):
 
 
 def main():
-    turret = Turret()
+    turret = TurretStub()
     tracker = MotionTracker()
     tracker.start()
-    turret.connect_mqtt(port, broker)
+    turret.connect_mqtt(broker, user, passwd)
     manual = True
     while True:
         feed = tracker.get_feed()
-        key = cv2.waitKey(10)
+        key = cv2.waitKey(20)  # 50 fps
         # Modo
         if manual:
             manual_aim(turret, feed)

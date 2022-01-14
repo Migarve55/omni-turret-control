@@ -1,11 +1,11 @@
 
 
-class Turret:
+class TurretStub:
     def __init__(self):
         pass
 
-    def connect_mqtt(self, port, broker):
-        print("Connected to", port, broker)
+    def connect_mqtt(self, broker, user, passwd):
+        print("Connected to: ", broker)
 
     def disconnect_mqtt(self):
         print("Disconnected")
